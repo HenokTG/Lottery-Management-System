@@ -2,19 +2,15 @@ import { useEffect } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "../icons/chart-bar";
 import { Cog as CogIcon } from "../icons/cog";
-import { Lock as LockIcon } from "../icons/lock";
 import { Selector as SelectorIcon } from "../icons/selector";
 import { PlayFolder as Games } from "../icons/play-folder";
 import { User as UserIcon } from "../icons/user";
-import { UserAdd as UserAddIcon } from "../icons/user-add";
 import { Users as UsersIcon } from "../icons/users";
 import { Report as Report } from "../icons/report";
 import { ActivityLog as Log } from "../icons/activity-log";
-import { XCircle as XCircleIcon } from "../icons/x-circle";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
 
@@ -85,21 +81,6 @@ const items = [
     icon: <Log fontSize="small" />,
     title: "Activity Logs",
   },
-  // {
-  //   href: "/login",
-  //   icon: <LockIcon fontSize="small" />,
-  //   title: "Login",
-  // },
-  // {
-  //   href: "/register",
-  //   icon: <UserAddIcon fontSize="small" />,
-  //   title: "Register",
-  // },
-  // {
-  //   href: "/404",
-  //   icon: <XCircleIcon fontSize="small" />,
-  //   title: "Error",
-  // },
 ];
 
 export const DashboardSidebar = (props) => {
@@ -190,61 +171,10 @@ export const DashboardSidebar = (props) => {
               icon={item.icon}
               href={item.href}
               title={item.title}
-              children={item.children}
+              subgroup={item.children}
             />
           ))}
         </Box>
-        {/* <Divider sx={{ borderColor: '#2D3748' }} /> */}
-        {/* <Box
-          sx={{
-            px: 2,
-            py: 3
-          }}
-        >
-          <Typography
-            color="neutral.100"
-            variant="subtitle2"
-          >
-            Need more features?
-          </Typography>
-          <Typography
-            color="neutral.500"
-            variant="body2"
-          >
-            Check out our Pro solution template.
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 2,
-              mx: 'auto',
-              width: '160px',
-              '& img': {
-                width: '100%'
-              }
-            }}
-          >
-            <img
-              alt="Go to pro"
-              src="/static/images/sidebar_pro.png"
-            />
-          </Box>
-          <NextLink
-            href="https://material-kit-pro-react.devias.io/"
-            passHref
-          >
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={(<OpenInNewIcon />)}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Pro Live Preview
-            </Button>
-          </NextLink>
-        </Box> */}
       </Box>
     </>
   );

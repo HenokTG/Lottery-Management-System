@@ -7,10 +7,10 @@ import { useState } from "react";
 import { Box, Button, ListItem, List, Collapse } from "@mui/material";
 
 export const NavItem = (props) => {
-  const { href, icon, title, children, ...others } = props;
+  const { href, icon, title, subgroup, ...others } = props;
   const router = useRouter();
   const active = href ? router.pathname === href : false;
-  const childActive = children ? router.pathname === children.href : false;
+  const childActive = subgroup ? router.pathname === subgroup.href : false;
 
   const [open, setOpen] = useState(childActive);
 
@@ -18,7 +18,7 @@ export const NavItem = (props) => {
     setOpen((prev) => !prev);
   };
 
-  if (children) {
+  if (subgroup) {
     return (
       <>
         <ListItem
@@ -57,12 +57,13 @@ export const NavItem = (props) => {
 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {children.map((item) => {
+            {subgroup.map((item) => {
               const { title, href, icon } = item;
               // const isActiveSub = active(path);
 
               return (
                 <ListItem
+                  key={title}
                   disableGutters
                   sx={{
                     display: "flex",
@@ -153,4 +154,5 @@ NavItem.propTypes = {
   href: PropTypes.string,
   icon: PropTypes.node,
   title: PropTypes.string,
+  subgroup: PropTypes.array,
 };
