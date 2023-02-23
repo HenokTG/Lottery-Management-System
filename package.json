@@ -3,7 +3,7 @@
   "author": "Henok",
   "licence": "None",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next",
     "build": "next build",
