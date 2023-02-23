@@ -44,7 +44,7 @@ const Page = () => (
               }}
             />
           </Box>
-          <NextLink href="/" passHref>
+          <NextLink href="/dashboard" passHref>
             <Button
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
