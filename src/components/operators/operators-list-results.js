@@ -109,6 +109,8 @@ export const OperatorListResults = ({ operators, ...rest }) => {
                   <StyledTableCell>Operator Name</StyledTableCell>
                   <StyledTableCell>Company Name</StyledTableCell>
                   <StyledTableCell>Email</StyledTableCell>
+                  <StyledTableCell>Phone Number</StyledTableCell>
+                  <StyledTableCell>Location</StyledTableCell>
                   <StyledTableCell>No. of Game Catagories</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell>Created By / ON</StyledTableCell>
@@ -117,10 +119,7 @@ export const OperatorListResults = ({ operators, ...rest }) => {
               </TableHead>
               <TableBody>
                 {operators.slice(0, limit).map((customer) => (
-                  <StyledTableRow
-                    hover
-                    key={customer.id}
-                  >
+                  <StyledTableRow hover key={customer.id}>
                     <TableCell>
                       <Box
                         sx={{
@@ -138,6 +137,11 @@ export const OperatorListResults = ({ operators, ...rest }) => {
                     </TableCell>
                     <TableCell>{customer.comName}</TableCell>
                     <TableCell>{customer.email}</TableCell>
+                    <TableCell>{customer.phone}</TableCell>
+                    <TableCell>
+                      {customer.address.street}, {customer.address.city},{" "}
+                      {customer.address.state}, {customer.address.country}
+                    </TableCell>
                     <TableCell align="center">{customer.noGameCatagory}</TableCell>
                     <TableCell>{customer.status}</TableCell>
                     <TableCell>Admin / {format(customer.createdAt, "MMM dd, yyyy")}</TableCell>

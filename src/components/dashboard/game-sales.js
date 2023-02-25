@@ -1,6 +1,17 @@
 import { Bar } from "react-chartjs-2";
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardActions,
+  Divider,
+  SvgIcon,
+  useTheme,
+} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 export const SalesByGames = (props) => {
   const theme = useTheme();
@@ -8,19 +19,19 @@ export const SalesByGames = (props) => {
   const data = {
     datasets: [
       {
-        backgroundColor: "#000",
+        backgroundColor: "#3F51B5",
         barPercentage: 0.5,
         barThickness: 30,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [1800, 555, 1119, 2700, 290, 1590, 2000, 1230, 720],
-        label: "Sales total by Game Category",
+        label: "Sales Total by Game Category",
         maxBarThickness: 50,
       },
     ],
     labels: [
       "Scrach Cards",
-      "Hotel Premise Casini",
+      "Hotel Premise Casino",
       "Other Games",
       "Public Online Lottery (POL)",
       "Stand Alone Casino",
@@ -35,7 +46,7 @@ export const SalesByGames = (props) => {
     animation: false,
     cornerRadius: 20,
     layout: { padding: 0 },
-    legend: { display: true },
+    legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
     xAxes: [
@@ -81,29 +92,16 @@ export const SalesByGames = (props) => {
   };
 
   return (
-    <Card sx={{ height: "100%", backgroundColor: "#F4EED9" }} {...props}>
+    <Card>
       <CardHeader
-        action={
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
-            variant="contained"
-            sx={{ background: "black" }}
-          >
-            Last 7 days
-          </Button>
-        }
-        title="Game Catagory"
+        title="Sales Total by Game Category"
         titleTypographyProps={{
           color: "textPrimary",
-          variant: "subtitle1",
+          variant: "h6",
           sx: {
-            backgroundColor: "white",
-            border: "solid 1px black",
             display: "inline-block",
             py: 1,
             px: 2,
-            borderRadius: 4,
             fontWeight: "bold",
           },
         }}
@@ -120,6 +118,28 @@ export const SalesByGames = (props) => {
           <Bar data={data} options={options} />
         </Box>
       </CardContent>
+      <Divider />
+      <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
+        <Button
+          endIcon={<ArrowDropDownIcon fontSize="small" />}
+          size="small"
+          variant="outlined"
+          color="info"
+        >
+          Last 7 days
+        </Button>
+        <Button
+          color="success"
+          endIcon={
+            <SvgIcon fontSize="small">
+              <ArrowRightAltIcon />
+            </SvgIcon>
+          }
+          size="small"
+        >
+          View All
+        </Button>
+      </CardActions>
     </Card>
   );
 };

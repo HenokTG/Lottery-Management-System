@@ -127,13 +127,10 @@ export const WinTicketResults = ({ winTickets, ...rest }) => {
               </TableHead>
               <TableBody>
                 {winTickets.slice(0, limit).map((winTicket) => (
-                  <StyledTableRow
-                    hover
-                    key={winTicket.id}
-                  >
+                  <StyledTableRow hover key={winTicket.id}>
                     <TableCell>{winTicket.operatorName}</TableCell>
                     <TableCell>{winTicket.gameName}</TableCell>
-                    <TableCell>{winTicket.phoneNumber}</TableCell>
+                    <TableCell>{winTicket.operatorName}</TableCell>
                     <TableCell>{winTicket.ticketRef}</TableCell>
                     <TableCell align="right">{winTicket.amount}</TableCell>
                     <TableCell>{winTicket.paymentType}</TableCell>

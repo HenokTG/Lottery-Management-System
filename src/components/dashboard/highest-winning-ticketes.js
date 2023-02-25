@@ -24,14 +24,29 @@ import {
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-const operatorSales = [...Array(10).keys()].map((elem, idx) => {
+const operatorName = () => {
+  const fakeName = faker.company.catchPhraseNoun();
+  const capName = fakeName.charAt(0).toUpperCase() + fakeName.slice(1);
+  return faker.helpers.arrayElement([capName + " Gaming", capName + " Bet", capName + " Lottery"]);
+};
+
+const topWinningTickets = [...Array(10).keys()].map((elem, idx) => {
   return {
     id: uuid(),
-    customer: {
-      name: faker.name.fullName(),
-    },
-    sales: faker.finance.amount(50000, 1000000, 2, "$ ", true),
-    tax: faker.finance.amount(8000, 130000, 2, "$ ", true),
+    operatorName: operatorName(),
+    gameName: faker.helpers.arrayElement([
+      "Scratch",
+      "G1X",
+      "G2X",
+      "Eksa 900",
+      "Eksa 3000",
+      "AMD RX 6900",
+      "Lotto Mini1",
+      "Doubles",
+      "Sport Saga",
+    ]),
+    ticketRef: faker.random.alpha({ count: 15, casing: "upper" }),
+    winAmount: faker.finance.amount(18000, 130000, 2, "$ ", true),
   };
 });
 
@@ -56,7 +71,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const OperatorSalesDetail = (props) => {
+export const HighestWinningTicketes = (props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const handleChangePage = (event, newPage) => {
@@ -68,25 +83,26 @@ export const OperatorSalesDetail = (props) => {
     setPage(0);
   };
   return (
-    <Card sx={{ height: "100%", p: 1}} {...props}>
-      <CardHeader title="Top Performing Operators" sx={{ py: 2, pl: 1 }} />
+    <Card sx={{ height: "100%", p: 1 }} {...props}>
+      <CardHeader title="Highest Winning Ticketes" sx={{ py: 2, pl: 1 }} />
       <PerfectScrollbar>
         <TableContainer component={Paper}>
           <Table size="small">
             <TableHead>
               <TableRow>
+                <StyledTableCell>Game Name</StyledTableCell>
                 <StyledTableCell>Operator Name</StyledTableCell>
-                <StyledTableCell>Total Sales</StyledTableCell>
-
-                <StyledTableCell>Total Tax</StyledTableCell>
+                <StyledTableCell>Ticket Reference</StyledTableCell>
+                <StyledTableCell>Paid Amount</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {operatorSales.map((operatorSale) => (
-                <StyledTableRow hover key={operatorSale.id}>
-                  <TableCell>{operatorSale.customer.name}</TableCell>
-                  <TableCell align="right">{operatorSale.sales}</TableCell>
-                  <TableCell align="right">{operatorSale.tax}</TableCell>
+              {topWinningTickets.map((topWinningTicket) => (
+                <StyledTableRow hover key={topWinningTicket.id}>
+                  <TableCell>{topWinningTicket.gameName}</TableCell>
+                  <TableCell>{topWinningTicket.operatorName}</TableCell>
+                  <TableCell>{topWinningTicket.ticketRef}</TableCell>
+                  <TableCell align="right">{topWinningTicket.winAmount}</TableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

@@ -97,7 +97,6 @@ export const winTickets = [...Array(25).keys()].map((elem, idx) => {
       "Doubles",
       "Sport Saga",
     ]),
-    phoneNumber: faker.phone.number("+251 ### ## ## ##"),
     ticketRef: faker.random.alpha({ count: 15, casing: "upper" }),
     amount: faker.finance.amount(5000, 60000, 2, "$ ", true),
     paymentType: faker.helpers.arrayElement(["Bank", "Wallet", "Cash"]),

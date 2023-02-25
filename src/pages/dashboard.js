@@ -1,16 +1,23 @@
 import Head from "next/head";
 import { Typography, Box, Container, Grid } from "@mui/material";
 
-import { TotalSales } from "../components/dashboard/total-sales";
-import { TotalTax } from "../components/dashboard/total-tax";
+import { OverviewTotals } from "../components/dashboard/overview-totals";
 import { SalesByGames } from "../components/dashboard/game-sales";
+import { OverviewPaymentDistributions } from "../components/dashboard/payment-distributions";
 import { OperatorSalesDetail } from "../components/dashboard/operator-sales-detail";
+import { HighestWinningTicketes } from "../components/dashboard/highest-winning-ticketes";
 import { DashboardLayout } from "../components/dashboard-layout";
+
+import { Sells as Sells } from "../icons/sells";
+import { Tax as Tax } from "../icons/tax";
+import { WonAmounts as WonAmounts } from "../icons/won-amount";
+import { Deposit as Deposit } from "../icons/deposit";
+import { Withdrawals as Withdrawals } from "../icons/withdrawal";
 
 const Page = () => (
   <>
     <Head>
-      <title>Dashboard | Lottery Management System</title>
+      <title>Overview | Lottery Management System</title>
     </Head>
     <Box
       component="main"
@@ -20,25 +27,60 @@ const Page = () => (
       }}
     >
       <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
-        Dashboard
+        Overview
       </Typography>
       <Container maxWidth={false}>
-        <Grid container spacing={3}>
-          <Grid item xl={9} lg={7} md={12} xs={12}>
-            <Grid container columnSpacing={2} rowSpacing={1}>
-              <Grid item xl={3} lg={6} sm={6} xs={12}>
-                <TotalSales />
-              </Grid>
-              <Grid item xl={3} lg={6} sm={6} xs={12}>
-                <TotalTax />
-              </Grid>
-              <Grid item xl={9} lg={12} md={12} xs={12}>
-                <SalesByGames />
-              </Grid>
-            </Grid>
+        <Grid container columnSpacing={1}>
+          <Grid item lg={2.4} sm={6} xs={12}>
+            <OverviewTotals
+              value={"$ 643k"}
+              title="Total Sales"
+              icon={<Sells />}
+              iconBg="primary"
+            />
           </Grid>
-          <Grid item xl={9} lg={5} md={12} xs={12}>
+          <Grid item lg={2.4} sm={6} xs={12}>
+            <OverviewTotals
+              value={"$ 64k"}
+              title="Won Amount"
+              icon={<WonAmounts />}
+              iconBg="secondary"
+            />
+          </Grid>
+          <Grid item lg={2.4} sm={6} xs={12}>
+            <OverviewTotals value={"$ 180k"} title="Total Tax" icon={<Tax />} iconBg="warning" />
+          </Grid>
+          <Grid item lg={2.4} sm={6} xs={12}>
+            <OverviewTotals
+              value={"$ 400k"}
+              title="Total Deposit"
+              icon={<Deposit />}
+              iconBg="info"
+            />
+          </Grid>
+          <Grid item lg={2.4} sm={6} xs={12}>
+            <OverviewTotals
+              value={"$ 110k"}
+              title="Total Withdraw"
+              icon={<Withdrawals />}
+              iconBg="error"
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} sx={{ mt: 0, mb: 3 }}>
+          <Grid item lg={7} md={12} xs={12}>
+            <SalesByGames />
+          </Grid>
+          <Grid item lg={5} md={12} xs={12}>
+            <OverviewPaymentDistributions />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item lg={5} md={12} xs={12}>
             <OperatorSalesDetail />
+          </Grid>
+          <Grid item lg={7} md={12} xs={12}>
+            <HighestWinningTicketes />
           </Grid>
         </Grid>
       </Container>
