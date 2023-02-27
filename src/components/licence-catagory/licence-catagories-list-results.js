@@ -2,11 +2,11 @@ import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+
 import {
-  Avatar,
   Box,
-  Container,
   Button,
+  Container,
   Card,
   Grid,
   TextField,
@@ -24,7 +24,6 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material/styles";
 
-import { getInitials } from "../../utils/get-initials";
 import { Search as SearchIcon } from "../../icons/search";
 import { Download as DownloadIcon } from "../../icons/download";
 import { Edit as Edit } from "../../icons/edit";
@@ -50,7 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
+export const LicenceCatagoryList = ({ licenceCatagories, setModalKey, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -71,7 +70,7 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
       }}
     >
       <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
-        Manage Operators
+        Manage Licence Catagory
       </Typography>
       <Container maxWidth="lg" sx={{ m: 0 }}>
         <Card>
@@ -97,7 +96,7 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
                           </InputAdornment>
                         ),
                       }}
-                      placeholder="Search operator"
+                      placeholder="Search licence catagory"
                       variant="outlined"
                       color="success"
                     />
@@ -105,7 +104,7 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
                 </Grid>
                 <Grid item md={4}>
                   <Grid container>
-                    <Grid item xs={6}>
+                    <Grid item md={4}>
                       <Button
                         color="info"
                         variant="outlined"
@@ -115,14 +114,14 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
                       </Button>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item md={8}>
                       <Button
                         color="info"
                         variant="contained"
                         onClick={() => setModalKey(true)}
                         startIcon={<AddIcon />}
                       >
-                        Add Operator
+                        Add Licence Catagory
                       </Button>
                     </Grid>
                   </Grid>
@@ -132,48 +131,22 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
                 <Table size="small">
                   <TableHead sx={{ py: 2 }}>
                     <TableRow>
-                      <StyledTableCell>Operator Name</StyledTableCell>
-                      <StyledTableCell>Company Name</StyledTableCell>
-                      <StyledTableCell>Email</StyledTableCell>
-                      <StyledTableCell>Phone Number</StyledTableCell>
-                      <StyledTableCell>Location</StyledTableCell>
-                      <StyledTableCell>No. of Game Catagories</StyledTableCell>
+                      <StyledTableCell>Licence Catagory</StyledTableCell>
+                      <StyledTableCell>Description</StyledTableCell>
                       <StyledTableCell>Status</StyledTableCell>
-                      <StyledTableCell>Created By / ON</StyledTableCell>
+                      <StyledTableCell>Created By/On</StyledTableCell>
                       <StyledTableCell>Action</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {operators.slice(0, limit).map((operator) => (
-                      <StyledTableRow hover key={operator.id}>
+                    {licenceCatagories.slice(0, limit).map((licenceCatagory) => (
+                      <StyledTableRow hover key={licenceCatagory.id}>
+                        <TableCell>{licenceCatagory.licenceCatagory}</TableCell>
+                        <TableCell>{licenceCatagory.description}</TableCell>
+
+                        <TableCell>{licenceCatagory.status}</TableCell>
                         <TableCell>
-                          <Box
-                            sx={{
-                              alignItems: "center",
-                              display: "flex",
-                            }}
-                          >
-                            <Avatar src={operator.avatarUrl} sx={{ mr: 2 }}>
-                              {getInitials(operator.name)}
-                            </Avatar>
-                            <Typography color="textPrimary" variant="body1">
-                              {operator.name}
-                            </Typography>
-                          </Box>
-                        </TableCell>
-                        <TableCell>{operator.comName}</TableCell>
-                        <TableCell sx={{ fontSize: 12 }}>{operator.email}</TableCell>
-                        <TableCell sx={{ fontSize: 12 }}>{operator.phone}</TableCell>
-                        <TableCell sx={{ fontSize: 12 }}>
-                          {operator.address.street}, {operator.address.city},{" "}
-                          {operator.address.state}, {operator.address.country}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: 12 }} align="center">
-                          {operator.noGameCatagory}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: 12 }}>{operator.status}</TableCell>
-                        <TableCell sx={{ fontSize: 12 }}>
-                          Admin / {format(operator.createdAt, "MMM dd, yyyy")}
+                          Admin / {format(licenceCatagory.createdAt, "MMM dd, yyyy")}
                         </TableCell>
                         <TableCell align="center">
                           <Button onClick={() => setModalKey(true)}>
@@ -198,7 +171,7 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={operators.length}
+            count={licenceCatagories.length}
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleLimitChange}
             page={page}
@@ -211,6 +184,6 @@ export const OperatorListResults = ({ operators, setModalKey, ...rest }) => {
   );
 };
 
-OperatorListResults.propTypes = {
-  operators: PropTypes.array.isRequired,
+LicenceCatagoryList.propTypes = {
+  licenceCatagories: PropTypes.array.isRequired,
 };

@@ -14,10 +14,12 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination, tableCellClasses,
+  TablePagination,
+  tableCellClasses,
   TableRow,
   Typography,
-} from "@mui/material"; import { styled } from "@mui/material/styles";
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 import { Search as SearchIcon } from "../../icons/search";
 import { Download as DownloadIcon } from "../../icons/download";
@@ -25,7 +27,7 @@ import { Filter as Filter } from "../../icons/filter";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -48,7 +50,6 @@ export const WinTicketResults = ({ winTickets, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
-
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -68,12 +69,26 @@ export const WinTicketResults = ({ winTickets, ...rest }) => {
             alignItems="center"
             sx={{ padding: 2 }}
           >
-            <Grid item xs={5}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of Winning Ticket Reports
-              </Typography>
+            <Grid item md={8}>
+              <Box sx={{ maxWidth: 400 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon color="action" fontSize="small">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Search winning ticket"
+                  variant="outlined"
+                  color="success"
+                />
+              </Box>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item md={4}>
               <Grid
                 container
                 spacing={1}
@@ -81,36 +96,25 @@ export const WinTicketResults = ({ winTickets, ...rest }) => {
                 justifyContent="flex-end"
                 alignItems="center"
               >
-                <Grid item xs={2.5}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
+                <Grid item md={6}>
+                  <Button
+                    color="info"
+                    variant="outlined"
+                    startIcon={<DownloadIcon fontSize="small" />}
+                  >
+                    Export
+                  </Button>
                 </Grid>
 
-                <Grid item xs={7}>
-                  <Box sx={{ maxWidth: 400 }}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <SearchIcon />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder="Search game"
-                      variant="outlined"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2.5}>
-                  <Button variant="outlined" startIcon={<Filter fontSize="small" />}>
+                <Grid item md={6}>
+                  <Button color="info" variant="contained" startIcon={<Filter fontSize="small" />}>
                     Filter
                   </Button>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
+
           <Card sx={{ mx: 2 }}>
             <Table size="small">
               <TableHead sx={{ py: 2 }}>

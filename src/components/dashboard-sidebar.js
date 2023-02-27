@@ -3,7 +3,10 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import ExtensionIcon from "@mui/icons-material/Extension";
 import { ChartBar as ChartBarIcon } from "../icons/chart-bar";
+
 import { Cog as CogIcon } from "../icons/cog";
 import { Selector as SelectorIcon } from "../icons/selector";
 import { PlayFolder as Games } from "../icons/play-folder";
@@ -26,9 +29,41 @@ const items = [
     title: "Operators",
   },
   {
+    href: "/licence-catagories",
+    icon: <EmojiEventsIcon fontSize="small" />,
+    title: "Licence Catagories",
+  },
+  {
     href: "/games",
-    icon: <Games fontSize="small" />,
+    icon: <ExtensionIcon fontSize="small" />,
     title: "Games",
+  },
+
+  {
+    href: "/report",
+    icon: <Report fontSize="small" />,
+    title: "Report",
+    children: [
+      { href: "/report/revenue", title: "Revenue" },
+      {
+        href: "/report/payment-distribution",
+        title: "Payment Distribution",
+      },
+      { href: "/report/ticket-info", title: "Ticket Info" },
+      {
+        href: "/report/winning-ticket",
+        title: "Winning Ticket",
+      },
+      {
+        href: "/report/operator-wallet",
+        title: "Operator Wallet",
+      },
+    ],
+  },
+  {
+    href: "/app-settings",
+    icon: <CogIcon fontSize="small" />,
+    title: "App Settings",
   },
   {
     href: "/management",
@@ -36,45 +71,14 @@ const items = [
     title: "Management",
     children: [
       {
-        href: "/management/user-management",
-        icon: <UserIcon fontSize="small" />,
-        title: "User Management",
-      },
-      {
         href: "/management/role-management",
-        icon: <UserIcon fontSize="small" />,
         title: "Role Management",
       },
-    ],
-  },
-  {
-    href: "/report",
-    icon: <Report fontSize="small" />,
-    title: "Report",
-    children: [
-      { href: "/report/revenue", icon: <Report fontSize="small" />, title: "Revenue" },
       {
-        href: "/report/payment-distribution",
-        icon: <Report fontSize="small" />,
-        title: "Payment Distribution",
-      },
-      { href: "/report/ticket-info", icon: <Report fontSize="small" />, title: "Ticket Info" },
-      {
-        href: "/report/winning-ticket",
-        icon: <Report fontSize="small" />,
-        title: "Winning Ticket",
-      },
-      {
-        href: "/report/operator-wallet",
-        icon: <Report fontSize="small" />,
-        title: "Operator Wallet",
+        href: "/management/user-management",
+        title: "User Management",
       },
     ],
-  },
-  {
-    href: "/app-configurations",
-    icon: <CogIcon fontSize="small" />,
-    title: "App Configurations",
   },
   {
     href: "/activity-logs",

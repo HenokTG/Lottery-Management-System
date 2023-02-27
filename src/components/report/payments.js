@@ -26,7 +26,7 @@ import { Filter as Filter } from "../../icons/filter";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -68,12 +68,26 @@ export const PaymentDistributionResults = ({ payments, ...rest }) => {
             alignItems="center"
             sx={{ padding: 2 }}
           >
-            <Grid item xs={5}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of Payment Distribution Report
-              </Typography>
+            <Grid item md={8}>
+              <Box sx={{ maxWidth: 400 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon color="action" fontSize="small">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Search payment distribution"
+                  variant="outlined"
+                  color="success"
+                />
+              </Box>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item md={4}>
               <Grid
                 container
                 spacing={1}
@@ -81,43 +95,31 @@ export const PaymentDistributionResults = ({ payments, ...rest }) => {
                 justifyContent="flex-end"
                 alignItems="center"
               >
-                <Grid item xs={2.5}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
+                <Grid item md={6}>
+                  <Button
+                    color="info"
+                    variant="outlined"
+                    startIcon={<DownloadIcon fontSize="small" />}
+                  >
+                    Export
+                  </Button>
                 </Grid>
 
-                <Grid item xs={7}>
-                  <Box sx={{ maxWidth: 400 }}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <SearchIcon />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder="Search payment"
-                      variant="outlined"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2.5}>
-                  <Button variant="outlined" startIcon={<Filter fontSize="small" />}>
+                <Grid item md={6}>
+                  <Button color="info" variant="contained" startIcon={<Filter fontSize="small" />}>
                     Filter
                   </Button>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
+
           <Card sx={{ mx: 2 }}>
             <Table size="small">
               <TableHead sx={{ py: 2 }}>
                 <TableRow>
                   <StyledTableCell align="center">Operator Name</StyledTableCell>
                   <StyledTableCell align="center">Company Name</StyledTableCell>
-                  <StyledTableCell align="center">Online</StyledTableCell>
                   <StyledTableCell align="center">Cash</StyledTableCell>
                   <StyledTableCell align="center">Babk</StyledTableCell>
                   <StyledTableCell align="center">Wallet</StyledTableCell>
@@ -129,7 +131,6 @@ export const PaymentDistributionResults = ({ payments, ...rest }) => {
                     <TableCell>{payment.operatorName}</TableCell>
                     <TableCell>{payment.comName}</TableCell>
 
-                    <TableCell align="right">{payment.online}</TableCell>
                     <TableCell align="right">{payment.cash}</TableCell>
                     <TableCell align="right">{payment.bank}</TableCell>
                     <TableCell align="right">{payment.wallet}</TableCell>

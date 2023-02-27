@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import {
   Box,
   Button,
+  Container,
   Card,
   Grid,
   TextField,
@@ -18,7 +19,8 @@ import {
   tableCellClasses,
   TableRow,
   Typography,
-} from "@mui/material";
+} from "@mui/material"; 
+import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material/styles";
 
 import { Search as SearchIcon } from "../../icons/search";
@@ -27,7 +29,7 @@ import { Edit as Edit } from "../../icons/edit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -46,7 +48,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const UserListResults = ({ users, ...rest }) => {
+export const UserListResults = ({ users, setModalKey, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -59,27 +61,28 @@ export const UserListResults = ({ users, ...rest }) => {
   };
 
   return (
-    <Card {...rest}>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ padding: 2 }}
-          >
-            <Grid item xs={7}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of Users
-              </Typography>
-            </Grid>
-            <Grid item xs={5}>
-              <Grid container direction="row" justifyContent="flex-end" alignItems="center">
-                <Grid item xs={3}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
-                </Grid>
-                <Grid item xs={9}>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8,
+      }}
+    >
+      <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
+        Manage Users
+      </Typography>
+      <Container maxWidth="lg" sx={{ m: 0 }}>
+        <Card>
+          <PerfectScrollbar>
+            <Box sx={{ minWidth: 1050 }}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ padding: 2 }}
+              >
+                <Grid item md={8}>
                   <Box sx={{ maxWidth: 400 }}>
                     <TextField
                       fullWidth
@@ -94,80 +97,102 @@ export const UserListResults = ({ users, ...rest }) => {
                       }}
                       placeholder="Search user"
                       variant="outlined"
+                      color="success"
                     />
                   </Box>
                 </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Card sx={{ mx: 2 }}>
-            <Table size="small">
-              <TableHead sx={{ py: 2 }}>
-                <TableRow>
-                  <StyledTableCell>User Name</StyledTableCell>
-                  <StyledTableCell>Role</StyledTableCell>
-                  <StyledTableCell>Email ID</StyledTableCell>
-                  <StyledTableCell>Phone Number</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
-                  <StyledTableCell>Created By/On</StyledTableCell>
-                  <StyledTableCell>Action</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.slice(0, limit).map((user) => (
-                  <StyledTableRow
-                    hover
-                    key={user.id}
-                  >
-                    <TableCell>
-                      <Box
-                        sx={{
-                          alignItems: "center",
-                          display: "flex",
-                        }}
+                <Grid item md={4}>
+                  <Grid container>
+                    <Grid item md={6}>
+                      <Button
+                        color="info"
+                        variant="outlined"
+                        startIcon={<DownloadIcon fontSize="small" />}
                       >
-                        <Typography color="textPrimary" variant="body1">
-                          {user.userName}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>{user.role}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.phoneNumber}</TableCell>
-
-                    <TableCell>{user.status}</TableCell>
-                    <TableCell>Admin / {format(user.createdAt, "MMM dd, yyyy")}</TableCell>
-                    <TableCell align="center">
-                      <Button>
-                        <Edit
-                          fontSize="small"
-                          sx={{
-                            p: 0,
-                            color: "black",
-                            "&:hover": {
-                              color: "lightseagreen",
-                            },
-                          }}
-                        />
+                        Export
                       </Button>
-                    </TableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={users.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
+                    </Grid>
+
+                    <Grid item md={6}>
+                      <Button
+                        color="info"
+                        variant="contained"
+                        onClick={() => setModalKey(true)}
+                        startIcon={<AddIcon />}
+                      >
+                        Add User
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Card sx={{ mx: 2 }}>
+                <Table size="small">
+                  <TableHead sx={{ py: 2 }}>
+                    <TableRow>
+                      <StyledTableCell>User Name</StyledTableCell>
+                      <StyledTableCell>Role</StyledTableCell>
+                      <StyledTableCell>Email ID</StyledTableCell>
+                      <StyledTableCell>Phone Number</StyledTableCell>
+                      <StyledTableCell>Status</StyledTableCell>
+                      <StyledTableCell>Created By/On</StyledTableCell>
+                      <StyledTableCell>Action</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {users.slice(0, limit).map((user) => (
+                      <StyledTableRow hover key={user.id}>
+                        <TableCell>
+                          <Box
+                            sx={{
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            <Typography color="textPrimary" variant="body1">
+                              {user.userName}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell>{user.role}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell>{user.phoneNumber}</TableCell>
+
+                        <TableCell>{user.status}</TableCell>
+                        <TableCell>Admin / {format(user.createdAt, "MMM dd, yyyy")}</TableCell>
+                        <TableCell align="center">
+                          <Button>
+                            <Edit
+                              fontSize="small"
+                              sx={{
+                                p: 0,
+                                color: "black",
+                                "&:hover": {
+                                  color: "lightseagreen",
+                                },
+                              }}
+                            />
+                          </Button>
+                        </TableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </Box>
+          </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={users.length}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+            page={page}
+            rowsPerPage={limit}
+            rowsPerPageOptions={[5, 10, 25]}
+          />
+        </Card>
+      </Container>
+    </Box>
   );
 };
 

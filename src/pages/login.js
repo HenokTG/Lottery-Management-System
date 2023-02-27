@@ -16,7 +16,7 @@ const Login = () => {
       password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: () => {
-      Router.push("/").catch(console.error);
+      Router.push("/dashboard").catch(console.error);
     },
   });
 

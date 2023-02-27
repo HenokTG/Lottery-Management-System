@@ -26,7 +26,7 @@ import { Filter as Filter } from "../../icons/filter";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -68,12 +68,26 @@ export const OperatorWalletResults = ({ wallets, ...rest }) => {
             alignItems="center"
             sx={{ padding: 2 }}
           >
-            <Grid item xs={5}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of Operator Wallet Reports
-              </Typography>
+            <Grid item md={8}>
+              <Box sx={{ maxWidth: 400 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon color="action" fontSize="small">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Search operator wallet"
+                  variant="outlined"
+                  color="success"
+                />
+              </Box>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item md={4}>
               <Grid
                 container
                 spacing={1}
@@ -81,30 +95,18 @@ export const OperatorWalletResults = ({ wallets, ...rest }) => {
                 justifyContent="flex-end"
                 alignItems="center"
               >
-                <Grid item xs={2.5}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
+                <Grid item md={6}>
+                  <Button
+                    color="info"
+                    variant="outlined"
+                    startIcon={<DownloadIcon fontSize="small" />}
+                  >
+                    Export
+                  </Button>
                 </Grid>
 
-                <Grid item xs={7}>
-                  <Box sx={{ maxWidth: 400 }}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <SearchIcon />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder="Search game"
-                      variant="outlined"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2.5}>
-                  <Button variant="outlined" startIcon={<Filter fontSize="small" />}>
+                <Grid item md={6}>
+                  <Button color="info" variant="contained" startIcon={<Filter fontSize="small" />}>
                     Filter
                   </Button>
                 </Grid>
@@ -124,10 +126,7 @@ export const OperatorWalletResults = ({ wallets, ...rest }) => {
               </TableHead>
               <TableBody>
                 {wallets.slice(0, limit).map((wallet) => (
-                  <StyledTableRow
-                    hover
-                    key={wallet.id}
-                  >
+                  <StyledTableRow hover key={wallet.id}>
                     <TableCell>{wallet.operatorName}</TableCell>
                     <TableCell>{wallet.comName}</TableCell>
                     <TableCell align="right">{wallet.wallet}</TableCell>

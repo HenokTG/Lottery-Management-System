@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>App Configurations | Lottery Management System</title>
+        <title>App Settings | Lottery Management System</title>
       </Head>
       <Box
         component="main"
@@ -21,7 +21,7 @@ const Page = () => {
         <Container maxWidth={false}>
           <Box>
             <Typography sx={{ m: 1, mb: 4 }} variant="h4">
-              App Configurations
+              App Settings
             </Typography>
           </Box>
 

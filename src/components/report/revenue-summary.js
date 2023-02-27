@@ -1,28 +1,26 @@
-import { Button, Card, CardHeader, Divider, Grid, Typography } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Typography, Grid, Card } from "@mui/material";
+
 import { Sells as Sells } from "../../icons/sells";
 import { Tax as Tax } from "../../icons/tax";
 
 const RevenueSummary = (props) => (
-  <Card sx={{ height: "100%", backgroundColor: "#F4EED9", mx: 2 }} {...props}>
+  <Card sx={{ mx: 2 }} {...props}>
     <Grid sx={{ p: 1 }} container alignItems="center">
       <Grid item md={2} textAlign="center">
         {props.badge === "Sales" ? (
           <Sells
             sx={{
-              backgroundColor: "#F4EED9",
-              color: "black",
-              height: 40,
-              width: 40,
+              color: "goldenrod",
+              height: 56,
+              width: 56,
             }}
           />
         ) : (
           <Tax
             sx={{
-              backgroundColor: "#F4EED9",
-              color: "black",
-              height: 40,
-              width: 40,
+              color: "goldenrod",
+              height: 56,
+              width: 56,
             }}
           />
         )}

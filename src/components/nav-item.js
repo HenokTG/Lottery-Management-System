@@ -9,8 +9,24 @@ import { Box, Button, ListItem, List, Collapse } from "@mui/material";
 export const NavItem = (props) => {
   const { href, icon, title, subgroup, ...others } = props;
   const router = useRouter();
-  const active = href ? router.pathname === href : false;
+  const active = href
+    ? router.pathname === href
+    : subgroup
+    ? router.pathname === subgroup.href
+    : false;
+  // active = subgroup ? router.pathname === subgroup.href : false;
   const childActive = subgroup ? router.pathname === subgroup.href : false;
+
+  console.log(
+    "Check link: ",
+    router.pathname,
+    "    =>    ",
+    href,
+    subgroup,
+    "WHAT?",
+    active,
+    childActive
+  );
 
   const [open, setOpen] = useState(childActive);
 
@@ -21,13 +37,7 @@ export const NavItem = (props) => {
   if (subgroup) {
     return (
       <>
-        <ListItem
-          onClick={handleOpen}
-          // sx={{
-          //   ...(isActiveRoot && activeRootStyle),
-          // }}
-        >
-          {/* <NextLink href={href} passHref> */}
+        <ListItem onClick={handleOpen}>
           <Button
             component="a"
             startIcon={icon}
@@ -52,14 +62,12 @@ export const NavItem = (props) => {
           >
             <Box sx={{ flexGrow: 1 }}>{title}</Box>
           </Button>
-          {/* </NextLink> */}
         </ListItem>
 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {subgroup.map((item) => {
               const { title, href, icon } = item;
-              // const isActiveSub = active(path);
 
               return (
                 <ListItem

@@ -5,8 +5,10 @@ import Router from "next/router";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, Container, Grid, TextField, Typography, MenuItem } from "@mui/material";
+import { Box, Button, Card, Grid, TextField, Typography, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
+
+import { theme } from "../../theme";
 
 const ValidationTextField = styled(TextField)({
   "& input:valid + fieldset": {
@@ -24,9 +26,6 @@ const ValidationTextField = styled(TextField)({
 });
 
 export const CreateRole = () => {
-  const [country, setCountry] = useState("");
-  const [region, setRegion] = useState("");
-
   // const handleChange = (event) => {
   //   setAge(event.target.value);
   // };
@@ -49,13 +48,14 @@ export const CreateRole = () => {
       <Box
         component="main"
         sx={{
-          alignItems: "center",
-          display: "flex",
           flexGrow: 1,
-          minHeight: "100%",
+          py: 8,
         }}
       >
-        <Container maxWidth="sm">
+        <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
+          Create Role
+        </Typography>
+        <Card maxWidth="sm" sx={{ display: "flex", justifyContent: "center", mx: 3, p: 3 }}>
           <form onSubmit={formik.handleSubmit}>
             <Box
               sx={{
@@ -64,7 +64,7 @@ export const CreateRole = () => {
             >
               <Typography
                 align="center"
-                color="goldenrod"
+                color={theme.palette.info.main}
                 variant="body1"
                 sx={{
                   pb: 2,
@@ -75,7 +75,7 @@ export const CreateRole = () => {
             </Box>
             <Grid container spacing={2}>
               <Grid item md={6}>
-                <ValidationTextField
+                <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
                   fullWidth
                   helperText={formik.touched.email && formik.errors.email}
@@ -89,21 +89,7 @@ export const CreateRole = () => {
                   color="success"
                 />
               </Grid>
-              <Grid item md={6}>
-                <TextField
-                  error={Boolean(formik.touched.email && formik.errors.email)}
-                  fullWidth
-                  helperText={formik.touched.email && formik.errors.email}
-                  label="Role Description"
-                  name="roleDescription"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="text"
-                  value={formik.values.roleDescription}
-                  size="medium"
-                  color="success"
-                />
-              </Grid>
+
               <Grid item md={6}>
                 <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
@@ -127,22 +113,53 @@ export const CreateRole = () => {
                   <MenuItem value={"View Only"}>View Only</MenuItem>
                 </TextField>
               </Grid>
+              <Grid item md={12}>
+                <TextField
+                  error={Boolean(formik.touched.email && formik.errors.email)}
+                  fullWidth
+                  helperText={formik.touched.email && formik.errors.email}
+                  label="Role Description"
+                  name="roleDescription"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="text"
+                  value={formik.values.roleDescription}
+                  size="small"
+                  color="success"
+                  multiline
+                  rows={4}
+                />
+              </Grid>
             </Grid>
 
-            <Box sx={{ py: 2 }}>
+            <Box sx={{ py: 2, mt: 2, display: "flex", justifyContent: "space-between" }}>
               <Button
+                onClick={() => window.location.reload()}
+                color="error"
+                disabled={formik.isSubmitting}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                sx={{ width: "48%" }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => window.location.reload()}
                 color="secondary"
                 disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
+                sx={{ width: "48%" }}
               >
                 Create Role
               </Button>
             </Box>
           </form>
-        </Container>
+        </Card>
       </Box>
     </>
   );

@@ -5,24 +5,11 @@ import Router from "next/router";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, Button, Card, Divider, Grid, TextField, Typography, MenuItem } from "@mui/material";
+
+import { theme } from "../../theme";
 
 export const CreateUser = () => {
-  const [country, setCountry] = useState("");
-  const [region, setRegion] = useState("");
-
   // const handleChange = (event) => {
   //   setAge(event.target.value);
   // };
@@ -45,13 +32,14 @@ export const CreateUser = () => {
       <Box
         component="main"
         sx={{
-          alignItems: "center",
-          display: "flex",
           flexGrow: 1,
-          minHeight: "100%",
+          py: 8,
         }}
       >
-        <Container maxWidth="sm">
+        <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
+          Create User
+        </Typography>
+        <Card maxWidth="sm" sx={{ display: "flex", justifyContent: "center", mx: 3, p: 3 }}>
           <form onSubmit={formik.handleSubmit}>
             <Box
               sx={{
@@ -60,7 +48,7 @@ export const CreateUser = () => {
             >
               <Typography
                 align="center"
-                color="goldenrod"
+                color={theme.palette.info.main}
                 variant="body1"
                 sx={{
                   pb: 2,
@@ -69,7 +57,7 @@ export const CreateUser = () => {
                 Basic Detail About the User
               </Typography>
             </Box>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ px: 15 }}>
               <Grid item md={6}>
                 <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
@@ -80,8 +68,8 @@ export const CreateUser = () => {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="text"
+                  color="success"
                   value={formik.values.firstName}
-                  size="small"
                 />
               </Grid>
               <Grid item md={6}>
@@ -94,8 +82,8 @@ export const CreateUser = () => {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="text"
+                  color="success"
                   value={formik.values.lastName}
-                  size="small"
                 />
               </Grid>
               <Grid item md={6}>
@@ -108,8 +96,8 @@ export const CreateUser = () => {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="email"
+                  color="success"
                   value={formik.values.email}
-                  size="small"
                 />
               </Grid>
               <Grid item md={6}>
@@ -122,8 +110,8 @@ export const CreateUser = () => {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="number"
+                  color="success"
                   value={formik.values.phoneNumber}
-                  size="small"
                 />
               </Grid>
             </Grid>
@@ -135,7 +123,7 @@ export const CreateUser = () => {
             >
               <Typography
                 align="center"
-                color="goldenrod"
+                color={theme.palette.info.main}
                 variant="body1"
                 sx={{
                   pb: 2,
@@ -144,7 +132,7 @@ export const CreateUser = () => {
                 Select the User Role
               </Typography>
             </Box>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ px: 15 }}>
               <Grid item md={6}>
                 <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
@@ -155,8 +143,8 @@ export const CreateUser = () => {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="text"
+                  color="success"
                   value={formik.values.userRole}
-                  size="small"
                   select
                 >
                   <MenuItem value={"Admin"}>Admin</MenuItem>
@@ -170,20 +158,34 @@ export const CreateUser = () => {
               </Grid>
             </Grid>
 
-            <Box sx={{ py: 2 }}>
+            <Box sx={{ py: 2, px: 15, mt: 2, display: "flex", justifyContent: "space-between" }}>
               <Button
+                onClick={() => window.location.reload()}
+                color="error"
+                disabled={formik.isSubmitting}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                sx={{ width: "48%" }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => window.location.reload()}
                 color="secondary"
                 disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
+                sx={{ width: "48%" }}
               >
                 Create User
               </Button>
             </Box>
           </form>
-        </Container>
+        </Card>
       </Box>
     </>
   );

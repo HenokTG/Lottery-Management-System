@@ -26,7 +26,7 @@ import { Edit as Edit } from "../icons/edit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -68,35 +68,29 @@ export const AppConfigResults = ({ appConfig, ...rest }) => {
             alignItems="center"
             sx={{ padding: 2 }}
           >
-            <Grid item xs={7}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of App Configurations
-              </Typography>
+            <Grid item md={10}>
+              <Box sx={{ maxWidth: 400 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon color="action" fontSize="small">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Search app setting"
+                  variant="outlined"
+                  color="success"
+                />
+              </Box>
             </Grid>
-            <Grid item xs={5}>
-              <Grid container direction="row" justifyContent="flex-end" alignItems="center">
-                <Grid item xs={3}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
-                </Grid>
-                <Grid item xs={9}>
-                  <Box sx={{ maxWidth: 400 }}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <SearchIcon />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder="Search game"
-                      variant="outlined"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
+            <Grid item md={2}>
+              <Button color="info" variant="outlined" startIcon={<DownloadIcon fontSize="small" />}>
+                Export
+              </Button>
             </Grid>
           </Grid>
           <Card sx={{ mx: 2 }}>
@@ -111,10 +105,7 @@ export const AppConfigResults = ({ appConfig, ...rest }) => {
               </TableHead>
               <TableBody>
                 {appConfig.slice(0, limit).map((config) => (
-                  <StyledTableRow
-                    hover
-                    key={config.id}
-                  >
+                  <StyledTableRow hover key={config.id}>
                     <TableCell>{config.key}</TableCell>
                     <TableCell>{config.description}</TableCell>
 

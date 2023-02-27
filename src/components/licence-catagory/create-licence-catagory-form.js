@@ -5,17 +5,16 @@ import Router from "next/router";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, Card, Grid, TextField, Typography, MenuItem } from "@mui/material";
+import { Box, Button, Container, Card, Grid, TextField, Typography, MenuItem } from "@mui/material";
 
 import { theme } from "../../theme";
 
-export const CreateGame = () => {
+export const CreateLicenceCatagory = () => {
   // const handleChange = (event) => {
   //   setAge(event.target.value);
   // };
   const formik = useFormik({
     initialValues: {
-      gameName: "",
       licenceCatagory: "",
       description: "",
     },
@@ -38,7 +37,7 @@ export const CreateGame = () => {
         }}
       >
         <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
-          Create Game
+          Create Licence Catagory
         </Typography>
         <Card maxWidth="sm" sx={{ display: "flex", justifyContent: "center", mx: 3, p: 3 }}>
           <form onSubmit={formik.handleSubmit}>
@@ -55,26 +54,11 @@ export const CreateGame = () => {
                   pb: 2,
                 }}
               >
-                Enter Game Details
+                Enter Licence Catagory Details
               </Typography>
             </Box>
-            <Grid container spacing={2}>
-              <Grid item md={6}>
-                <TextField
-                  error={Boolean(formik.touched.email && formik.errors.email)}
-                  fullWidth
-                  helperText={formik.touched.email && formik.errors.email}
-                  label="Game Name"
-                  name="gameName"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="text"
-                  color="success"
-                  value={formik.values.gameName}
-                  size="medium"
-                />
-              </Grid>
-              <Grid item md={6}>
+            <Grid container spacing={2} minWidth="600px">
+              <Grid item md={12}>
                 <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
                   fullWidth
@@ -87,18 +71,7 @@ export const CreateGame = () => {
                   color="success"
                   value={formik.values.licenceCatagory}
                   size="medium"
-                  select
-                >
-                  <MenuItem value={"Scratch Cards"}>Scratch Cards</MenuItem>
-                  <MenuItem value={"Online Casino"}>Online Casino</MenuItem>
-                  <MenuItem value={"Hotel Casino"}>Hotel Casino</MenuItem>
-                  <MenuItem value={"Public Online Lottery(POL)"}>
-                    Public Online Lottery(POL)
-                  </MenuItem>
-                  <MenuItem value={"Gaming Machine"}>Gaming Machine</MenuItem>
-                  <MenuItem value={"Online Sport Bettings"}>Online Sport Bettings</MenuItem>
-                  <MenuItem value={"Other Games"}>Other Games</MenuItem>
-                </TextField>
+                />
               </Grid>
 
               <Grid item md={12}>
@@ -114,7 +87,7 @@ export const CreateGame = () => {
                   color="success"
                   value={formik.values.description}
                   multiline
-                  rows={3}
+                  rows={4}
                   size="medium"
                 />
               </Grid>

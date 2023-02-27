@@ -7,7 +7,7 @@ import { SettingsPassword } from '../components/settings/settings-password';
 const Page = () => (
   <>
     <Head>
-      <title>Settings | Lottery Management System</title>
+      <title>Account Settings | Lottery Management System</title>
     </Head>
     <Box
       component="main"
@@ -17,8 +17,8 @@ const Page = () => (
       }}
     >
       <Container maxWidth="lg">
-        <Typography sx={{ mb: 3 }} variant="h4">
-          Settings
+        <Typography sx={{ mb: 0 }} variant="h4">
+          Account Settings
         </Typography>
         <Box sx={{ pt: 3 }}>
           <SettingsPersonalInfo />

@@ -63,7 +63,7 @@ export const SettingsPassword = (props) => {
             ml: 5,
           }}
         >
-          <Button color="warning" variant="contained">
+          <Button color="warning" size="large" variant="contained" sx={{ width: "15rem" }}>
             Send OTP
           </Button>
         </Box>

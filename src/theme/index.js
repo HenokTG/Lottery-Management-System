@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   breakpoints: {
@@ -103,7 +103,10 @@ export const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          border: "2px solid black",
+          border: "1px solid #64B6F7",
+          "&:focus": {
+            border: "1px solid #64B6F7",
+          },
         },
       },
     },

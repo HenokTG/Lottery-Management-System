@@ -14,17 +14,19 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination, tableCellClasses,
+  TablePagination,
+  tableCellClasses,
   TableRow,
   Typography,
-} from "@mui/material"; import { styled } from "@mui/material/styles";
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 import { Search as SearchIcon } from "../icons/search";
 import { Download as DownloadIcon } from "../icons/download";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -47,7 +49,6 @@ export const ActivityLogResults = ({ activity, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
-  
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -67,35 +68,29 @@ export const ActivityLogResults = ({ activity, ...rest }) => {
             alignItems="center"
             sx={{ padding: 2 }}
           >
-            <Grid item xs={7}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of Activities
-              </Typography>
+            <Grid item md={10}>
+              <Box sx={{ maxWidth: 400 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon color="action" fontSize="small">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Search app setting"
+                  variant="outlined"
+                  color="success"
+                />
+              </Box>
             </Grid>
-            <Grid item xs={5}>
-              <Grid container direction="row" justifyContent="flex-end" alignItems="center">
-                <Grid item xs={3}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
-                </Grid>
-                <Grid item xs={9}>
-                  <Box sx={{ maxWidth: 400 }}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <SearchIcon />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder="Search game"
-                      variant="outlined"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
+            <Grid item md={2}>
+              <Button color="info" variant="outlined" startIcon={<DownloadIcon fontSize="small" />}>
+                Export
+              </Button>
             </Grid>
           </Grid>
           <Card sx={{ mx: 2 }}>
@@ -111,10 +106,7 @@ export const ActivityLogResults = ({ activity, ...rest }) => {
               </TableHead>
               <TableBody>
                 {activity.slice(0, limit).map((activity) => (
-                  <StyledTableRow
-                    hover
-                    key={activity.id}
-                  >
+                  <StyledTableRow hover key={activity.id}>
                     <TableCell>{activity.module}</TableCell>
                     <TableCell>{activity.type}</TableCell>
                     <TableCell>{activity.performedOn}</TableCell>

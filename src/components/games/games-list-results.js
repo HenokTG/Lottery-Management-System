@@ -6,20 +6,23 @@ import { format } from "date-fns";
 import {
   Box,
   Button,
+  Container,
   Card,
   Grid,
   TextField,
   InputAdornment,
   SvgIcon,
-  Table,
-  TableBody,
+  Pagination,
+  Avatar,
+  Divider,
   TableCell,
-  TableHead,
-  TablePagination,
+  Stack,
+  CardContent,
   tableCellClasses,
   TableRow,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material/styles";
 
 import { Search as SearchIcon } from "../../icons/search";
@@ -28,7 +31,7 @@ import { Edit as Edit } from "../../icons/edit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
     padding: 14,
   },
@@ -47,8 +50,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const GameListResults = ({ games, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+export const GameListResults = ({ games, setModalKey, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -61,86 +63,102 @@ export const GameListResults = ({ games, ...rest }) => {
   };
 
   return (
-    <Card {...rest}>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ padding: 2 }}
-          >
-            <Grid item xs={7}>
-              <Typography sx={{ m: 1 }} variant="h6">
-                List of Games
-              </Typography>
-            </Grid>
-            <Grid item xs={5}>
-              <Grid container direction="row" justifyContent="flex-end" alignItems="center">
-                <Grid item xs={3}>
-                  <Button startIcon={<DownloadIcon fontSize="small" />}>Export</Button>
-                </Grid>
-                <Grid item xs={9}>
-                  <Box sx={{ maxWidth: 400 }}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <SearchIcon />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder="Search game"
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8,
+      }}
+    >
+      <Typography sx={{ ml: 4, mt: 1, mb: 3 }} variant="h4">
+        Manage Games
+      </Typography>
+      <Container maxWidth="lg" sx={{ m: 0 }}>
+        <PerfectScrollbar sx={{ minWidth: 1050 }}>
+          <Card>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ padding: 2 }}
+            >
+              <Grid item md={8}>
+                <Box sx={{ maxWidth: 400 }}>
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SvgIcon color="action" fontSize="small">
+                            <SearchIcon />
+                          </SvgIcon>
+                        </InputAdornment>
+                      ),
+                    }}
+                    placeholder="Search game"
+                    variant="outlined"
+                    color="success"
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={4}>
+                <Grid container>
+                  <Grid item md={6}>
+                    <Button
+                      color="info"
                       variant="outlined"
-                    />
-                  </Box>
+                      startIcon={<DownloadIcon fontSize="small" />}
+                    >
+                      Export
+                    </Button>
+                  </Grid>
+
+                  <Grid item md={6}>
+                    <Button
+                      color="info"
+                      variant="contained"
+                      onClick={() => setModalKey(true)}
+                      startIcon={<AddIcon />}
+                    >
+                      Add Game
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <Card sx={{ mx: 2 }}>
-            <Table size="small">
-              <TableHead sx={{ py: 2 }}>
-                <TableRow>
-                  <StyledTableCell>Game Name</StyledTableCell>
-                  <StyledTableCell>Licence Catagory</StyledTableCell>
-                  <StyledTableCell>Operator Name</StyledTableCell>
-                  <StyledTableCell>Description</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
-                  <StyledTableCell>Created By/On</StyledTableCell>
-                  <StyledTableCell>Action</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {games.slice(0, limit).map((customer) => (
-                  <StyledTableRow
-                    hover
-                    key={customer.id}
-                  >
-                    <TableCell>
-                      <Box
+          </Card>
+          <Grid container spacing={3} sx={{ mt: 1 }}>
+            {games.map((game) => (
+              <Grid item xs={12} md={6} lg={4} key={game.id}>
+                <Card>
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        pb: 3,
+                      }}
+                    >
+                      <Avatar
+                        src={game.logo}
+                        variant="square"
                         sx={{
-                          alignItems: "center",
-                          display: "flex",
+                          height: 60,
+                          width: 60,
                         }}
+                      />
+                    </Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+                      <Typography
+                        align="center"
+                        gutterBottom
+                        variant="h5"
+                        color={game.status === "Active" ? "lightgreen" : "red"}
                       >
-                        <Typography color="textPrimary" variant="body1">
-                          {customer.gameName}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>{customer.licenceCatagory}</TableCell>
-                    <TableCell>{customer.operatorName}</TableCell>
-                    <TableCell>{customer.description}</TableCell>
-
-                    <TableCell>{customer.status}</TableCell>
-                    <TableCell>Admin / {format(customer.createdAt, "MMM dd, yyyy")}</TableCell>
-                    <TableCell align="center">
-                      <Button>
+                        {game.gameName}
+                      </Typography>
+                      <Button onClick={() => setModalKey(true)}>
                         <Edit
                           fontSize="small"
                           sx={{
@@ -152,24 +170,50 @@ export const GameListResults = ({ games, ...rest }) => {
                           }}
                         />
                       </Button>
-                    </TableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={games.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
+                    </Box>
+                    <Typography align="center" variant="subtitle2">
+                      {game.licenceCatagory}
+                    </Typography>
+                    <Typography align="center" variant="body2" sx={{ mt: 2, height: "3rem" }}>
+                      {game.description}
+                    </Typography>
+                  </CardContent>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <Divider />
+                  <Stack
+                    alignItems="center"
+                    direction="row"
+                    justifyContent="space-between"
+                    spacing={2}
+                    sx={{ p: 2 }}
+                  >
+                    <Stack alignItems="center" direction="row" spacing={1}>
+                      <Typography color="text.secondary" display="inline" variant="body2">
+                        {format(game.createdAt, "MMM dd, yyyy")}
+                      </Typography>
+                    </Stack>
+                    <Stack alignItems="center" direction="row" spacing={1}>
+                      <Typography color="text.secondary" display="inline" variant="body2">
+                        23 Operators
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: 5,
+            }}
+          >
+            <Pagination count={3} size="small" />
+          </Box>
+        </PerfectScrollbar>
+      </Container>
+    </Box>
   );
 };
 

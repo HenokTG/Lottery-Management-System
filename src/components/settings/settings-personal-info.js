@@ -10,10 +10,29 @@ import {
   TextField,
 } from "@mui/material";
 
+const states = [
+  {
+    value: "addis-ababa",
+    label: "Addis Ababa",
+  },
+  {
+    value: "oromia",
+    label: "Oromia",
+  },
+  {
+    value: "amhara",
+    label: "Amhara",
+  },
+];
+
 export const SettingsPersonalInfo = (props) => {
   const [values, setValues] = useState({
-    password: "",
-    confirm: "",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe1496@gmail.com",
+    phone: 934344374,
+    state: "Addis Ababa",
+    country: "Ethiopia",
   });
 
   const handleChange = (event) => {
@@ -29,58 +48,87 @@ export const SettingsPersonalInfo = (props) => {
         <CardHeader subheader="Update Personal Info" title="Profile" />
         <Divider />
         <CardContent>
-          <Grid container columnSpacing={3} md={8}>
-            <Grid item md={6}>
+          <Grid container spacing={3} md={8}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label="First Name"
-                margin="normal"
+                // helperText="Please specify the first name"
+                label="First name"
                 name="firstName"
                 onChange={handleChange}
-                type="text"
+                required
                 value={values.firstName}
                 variant="outlined"
-                color="warning"
+                color="success"
               />
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label="Last Name"
-                margin="normal"
+                label="Last name"
                 name="lastName"
                 onChange={handleChange}
-                type="text"
+                required
                 value={values.lastName}
                 variant="outlined"
-                color="warning"
+                color="success"
               />
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label="Email ID"
-                margin="normal"
+                label="Email Address"
                 name="email"
                 onChange={handleChange}
-                type="email"
+                required
                 value={values.email}
                 variant="outlined"
-                color="warning"
+                color="success"
               />
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
-                margin="normal"
-                name="phoneNumber"
+                name="phone"
                 onChange={handleChange}
                 type="number"
-                value={values.phoneNumber}
+                value={values.phone}
                 variant="outlined"
-                color="warning"
+                color="success"
               />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Country"
+                name="country"
+                onChange={handleChange}
+                required
+                value={values.country}
+                variant="outlined"
+                color="success"
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Select State"
+                name="state"
+                onChange={handleChange}
+                required
+                select
+                SelectProps={{ native: true }}
+                value={values.state}
+                variant="outlined"
+                color="success"
+              >
+                {states.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
           </Grid>
         </CardContent>
@@ -93,7 +141,7 @@ export const SettingsPersonalInfo = (props) => {
             ml: 5,
           }}
         >
-          <Button color="warning" variant="contained">
+          <Button color="success" size="large" variant="contained" sx={{ width: "15rem" }}>
             Save
           </Button>
         </Box>

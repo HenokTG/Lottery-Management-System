@@ -30,7 +30,7 @@ export const AccountPopover = (props) => {
       globalThis.sessionStorage.removeItem("skip-auth");
 
       // Redirect to sign-in page
-      Router.push("/sign-in").catch(console.error);
+      Router.push("/login").catch(console.error);
       return;
     }
 
@@ -42,7 +42,7 @@ export const AccountPopover = (props) => {
       authContext.signOut();
 
       // Redirect to sign-in page
-      Router.push("/sign-in").catch(console.error);
+      Router.push("/login").catch(console.error);
     } catch (err) {
       console.error(err);
     }
@@ -82,11 +82,11 @@ export const AccountPopover = (props) => {
             },
           }}
         >
-          <NextLink href="/account" passHref>
+          <NextLink href="user-profile" passHref>
             <MenuItem onClick={handleSignOut}>User profile</MenuItem>
           </NextLink>
-          <NextLink href="settings" passHref>
-            <MenuItem onClick={handleSignOut}>Settings</MenuItem>
+          <NextLink href="account-settings" passHref>
+            <MenuItem onClick={handleSignOut}>Account settings</MenuItem>
           </NextLink>
         </MenuList>
       </Box>
@@ -103,7 +103,7 @@ export const AccountPopover = (props) => {
           },
         }}
       >
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        <MenuItem onClick={() => Router.push("/login").catch(console.error)}>Sign out</MenuItem>
       </MenuList>
     </Popover>
   );
