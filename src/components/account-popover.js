@@ -103,7 +103,7 @@ export const AccountPopover = (props) => {
           },
         }}
       >
-        <MenuItem onClick={() => Router.push("/login").catch(console.error)}>Sign out</MenuItem>
+        <MenuItem onClick={() => Router.push("/").catch(console.error)}>Sign out</MenuItem>
       </MenuList>
     </Popover>
   );

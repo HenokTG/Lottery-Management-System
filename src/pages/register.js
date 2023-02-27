@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import Router from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import Head from "next/head";
+import NextLink from "next/link";
+import Router from "next/router";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   Box,
   Button,
@@ -11,50 +11,29 @@ import {
   FormHelperText,
   Link,
   TextField,
-  Typography
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+  Typography,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Register = () => {
   const formik = useFormik({
     initialValues: {
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-      policy: false
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      policy: false,
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required(
-          'Email is required'),
-      firstName: Yup
-        .string()
-        .max(255)
-        .required('First name is required'),
-      lastName: Yup
-        .string()
-        .max(255)
-        .required('Last name is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required('Password is required'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'This field must be checked'
-        )
+      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      firstName: Yup.string().max(255).required("First name is required"),
+      lastName: Yup.string().max(255).required("Last name is required"),
+      password: Yup.string().max(255).required("Password is required"),
+      policy: Yup.boolean().oneOf([true], "This field must be checked"),
     }),
     onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
-    }
+      Router.push("/").catch(console.error);
+    },
   });
 
   return (
@@ -174,7 +153,7 @@ const Register = () => {
             </Box>
             <Typography color="textSecondary" variant="body2">
               Have an account?{" "}
-              <NextLink href="/login" passHref>
+              <NextLink href="/" passHref>
                 <Link variant="subtitle2" underline="hover">
                   Sign In
                 </Link>
